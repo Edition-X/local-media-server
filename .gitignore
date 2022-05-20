@@ -1,3 +1,6 @@
 credentials.txt
 .vim
 venv
+host_files/localhost/media-server-docker-compose.yml
+downloads
+configs

@@ -7,8 +7,8 @@ services:
     container_name: nzbget
     privileged: true
     environment:
-      - PUID={{ ansible_user_id }}
-      - PGID={{ ansible_user_id }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - VPN_ENABLED={{ vpn_enabled }}
       - VPN_TYPE={{ vpn_enabled }}
       - VPN_USERNAME={{ vpn_username }}
@@ -30,8 +30,8 @@ services:
     image: ghcr.io/linuxserver/sonarr
     container_name: sonarr
     environment:
-      - PUID={{ ansible_user_id }}
-      - PGID={{ ansible_user_id }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     volumes:
       - {{ media_home }}/configs/sonarr:/config
@@ -46,8 +46,8 @@ services:
     image: ghcr.io/linuxserver/radarr
     container_name: radarr
     environment:
-      - PUID={{ ansible_user_id }}
-      - PGID={{ ansible_user_id }}
+      - PUID={{ ansible_user_uid }}
+      - PGID={{ ansible_user_gid }}
       - TZ={{ timezone }}
     volumes:
       - {{ media_home }}/configs/radarr:/config
