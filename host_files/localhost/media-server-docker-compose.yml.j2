@@ -1,0 +1,60 @@
+# {{ ansible_managed }}
+---
+version: "2.1"
+services:
+  nzbget:
+    image: dyonr/nzbgetvpn
+    container_name: nzbget
+    privileged: true
+    environment:
+      - PUID={{ ansible_user_id }}
+      - PGID={{ ansible_group_id }}
+      - VPN_ENABLED={{ vpn_enabled }}
+      - VPN_TYPE={{ vpn_enabled }}
+      - VPN_USERNAME={{ vpn_username }}
+      - VPN_PASSWORD={{ vpn_password }}
+      - NAME_SERVERS={{ name_servers }}
+      - LAN_NETWORK={{ lan_network }}
+      - WEBUI_USERNAME={{ webui_username }}
+      - WEBUI_PASSWORD={{ webui_password }}
+      - ENABLE_SSL={{ enable_ssl }}
+      - TZ={{ timezone }}
+    volumes:
+      - {{ media_home }}/configs/nzbget:/config
+      - {{ media_home }}/downloads:/downloads #optional
+    ports:
+      - 6789:6789
+      - 6791:6791
+    restart: unless-stopped
+  sonarr:
+    image: ghcr.io/linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID={{ ansible_user_id }}
+      - PGID={{ ansible_group_id }}
+      - TZ={{ timezone }}
+    volumes:
+      - {{ media_home }}/configs/sonarr:/config
+      - {{ media_home }}/tv:/tv #optional
+      - {{ media_home }}/downloads:/downloads #optional
+    links:
+      - nzbget
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+  radarr:
+    image: ghcr.io/linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID={{ ansible_user_id }}
+      - PGID={{ ansible_group_id }}
+      - TZ={{ timezone }}
+    volumes:
+      - {{ media_home }}/configs/radarr:/config
+      - {{ media_home }}/movies:/movies #optional
+      - {{ media_home }}/downloads:/downloads #optional
+    links:
+      - nzbget
+    ports:
+      - 7878:7878
+    restart: unless-stopped
