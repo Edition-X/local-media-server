@@ -3,10 +3,22 @@
   hosts: localhost
 
   tasks:
+
+    - name: Create docker-compose file
+      ansible.builtin.template:
+        src: host_files/{{ inventory_hostname }}/{{ docker_compose_template }}
+        dest: host_files/{{ inventory_hostname }}/{{ docker_compose_template }}
+        owner: {{ ansible_user_uid }}
+        group: {{ ansible_group_uid }}
+      tags: 
+        - core
+
     - name: Launch Containers
       community.docker.docker_compose:
         debug: true
         project_src: ../local-media-server
         files: media-server-docker-compose.yml
         recreate: never
+      tags:
+        - core
   
