@@ -16,8 +16,8 @@ $(PYTHON_VIRTUAL_ENVIRONMENT): $(PYTHON_REQUIREMENTS_FILE)
 
 .PHONY: up
 up: $(PYTHON_VIRTUAL_ENVIRONMENT)
-	@$(call activate, ansible-playbook $(ANSIBLE_PLAYBOOK_FILE) $(RUN_ARGS) --tags core)
+	@$(call activate, ANSIBLE_COW_SELECTION=tux ansible-playbook $(ANSIBLE_PLAYBOOK_FILE) $(RUN_ARGS) --tags core)
 
 .PHONY: down
 down: $(PYTHON_VIRTUAL_ENVIRONMENT)
-	@$(call activate, ansible-playbook $(ANSIBLE_PLAYBOOK_FILE) $(RUN_ARGS) --tags down)
+	@$(call activate, ANSIBLE_COW_SELECTION=tux ansible-playbook $(ANSIBLE_PLAYBOOK_FILE) $(RUN_ARGS) --tags down)
