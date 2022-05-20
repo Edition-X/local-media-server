@@ -8,7 +8,7 @@ services:
     privileged: true
     environment:
       - PUID={{ ansible_user_id }}
-      - PGID={{ ansible_group_id }}
+      - PGID={{ ansible_user_id }}
       - VPN_ENABLED={{ vpn_enabled }}
       - VPN_TYPE={{ vpn_enabled }}
       - VPN_USERNAME={{ vpn_username }}
@@ -31,7 +31,7 @@ services:
     container_name: sonarr
     environment:
       - PUID={{ ansible_user_id }}
-      - PGID={{ ansible_group_id }}
+      - PGID={{ ansible_user_id }}
       - TZ={{ timezone }}
     volumes:
       - {{ media_home }}/configs/sonarr:/config
@@ -47,7 +47,7 @@ services:
     container_name: radarr
     environment:
       - PUID={{ ansible_user_id }}
-      - PGID={{ ansible_group_id }}
+      - PGID={{ ansible_user_id }}
       - TZ={{ timezone }}
     volumes:
       - {{ media_home }}/configs/radarr:/config

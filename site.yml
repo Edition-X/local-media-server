@@ -6,19 +6,23 @@
 
     - name: Create docker-compose file
       ansible.builtin.template:
-        src: host_files/{{ inventory_hostname }}/{{ docker_compose_template }}
-        dest: host_files/{{ inventory_hostname }}/{{ docker_compose_template }}
-        owner: {{ ansible_user_uid }}
-        group: {{ ansible_group_uid }}
+        src: "host_files/{{ inventory_hostname }}/{{ docker_compose_template }}"
+        dest: "host_files/{{ inventory_hostname }}/{{ docker_compose_file }}"
+        owner: "{{ ansible_user_uid }}"
+        group: "{{ ansible_user_gid }}"
       tags: 
         - core
 
     - name: Launch Containers
       community.docker.docker_compose:
         debug: true
-        project_src: ../local-media-server
-        files: media-server-docker-compose.yml
+        project_src: "host_files/{{ inventory_hostname }}"
+        files: "{{ docker_compose_file }}"
         recreate: never
       tags:
         - core
+    - name: Delete docker-compose file # Secrets are in plain text
+      ansible.builtin.file:
+        path: "host_files/{{ inventory_hostname }}/{{ docker_compose_file }}"
+        state: absent
   

@@ -1,5 +1,5 @@
 ---
-media_home: {{ ansible_user_dir }}/local-media-server
+media_home: "{{ ansible_user_dir }}/local_media_server"
 docker_compose_template: media-server-docker-compose.yml.j2
 docker_compose_file: media-server-docker-compose.yml
 vpn_enabled: yes
