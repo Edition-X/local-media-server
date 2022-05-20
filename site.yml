@@ -21,6 +21,7 @@
         recreate: never
       tags:
         - core
+
     - name: Delete docker-compose file # Secrets are in plain text
       ansible.builtin.file:
         path: "host_files/{{ inventory_hostname }}/{{ docker_compose_file }}"
