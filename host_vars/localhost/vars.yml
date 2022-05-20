@@ -1,0 +1,13 @@
+---
+media_home: /Users/daniel.kelly/local-media-server
+user_id: 503
+group_id: 20
+vpn_enabled: yes
+vpn_type: openvpn
+vpn_username: NGtG49Je2crte2jv2HHtkQY6
+vpn_password: {{ vault_vpn_password }}
+name_servers: 8.8.8.8,4.4.4.4
+lan_network: 192.168.0.0/24
+webui_username: nzbget
+webui_password: {{ vault_webui_password }}
+timezone: Europe/Madrid
