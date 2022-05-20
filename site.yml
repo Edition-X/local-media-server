@@ -1,0 +1,12 @@
+---
+- name: local-media-server
+  hosts: localhost
+
+  tasks:
+    - name: Launch Containers
+      community.docker.docker_compose:
+        debug: true
+        project_src: ../local-media-server
+        files: media-server-docker-compose.yml
+        recreate: never
+  
