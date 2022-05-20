@@ -22,8 +22,11 @@
       tags:
         - core
 
-    - name: Delete docker-compose file # Secrets are in plain text
-      ansible.builtin.file:
-        path: "host_files/{{ inventory_hostname }}/{{ docker_compose_file }}"
+    - name: Remove Containers
+      community.docker.docker_compose:
+        project_src: "host_files/{{ inventory_hostname }}"
+        files: "{{ docker_compose_file }}"
+        recreate: never
         state: absent
-  
+      tags:
+        - down # Remove containers
