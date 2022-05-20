@@ -5,6 +5,7 @@
   tasks:
 
     - name: Create docker-compose file
+      no_log: True
       ansible.builtin.template:
         src: "host_files/{{ inventory_hostname }}/{{ docker_compose_template }}"
         dest: "host_files/{{ inventory_hostname }}/{{ docker_compose_file }}"
@@ -15,7 +16,6 @@
 
     - name: Launch Containers
       community.docker.docker_compose:
-        debug: true
         project_src: "host_files/{{ inventory_hostname }}"
         files: "{{ docker_compose_file }}"
         recreate: never
