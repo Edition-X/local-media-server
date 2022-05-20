@@ -14,7 +14,10 @@ $(PYTHON_VIRTUAL_ENVIRONMENT): $(PYTHON_REQUIREMENTS_FILE)
 	@$(call activate, pip install wheel)
 	@$(call activate, pip install -r $(PYTHON_REQUIREMENTS_FILE))
 
-.PHONY: run
-run: $(PYTHON_VIRTUAL_ENVIRONMENT)
-	@$(call activate, ansible-playbook $(ANSIBLE_PLAYBOOK_FILE) $(RUN_ARGS))
+.PHONY: up
+up: $(PYTHON_VIRTUAL_ENVIRONMENT)
+	@$(call activate, ansible-playbook $(ANSIBLE_PLAYBOOK_FILE) $(RUN_ARGS) --tags core)
 
+.PHONY: down
+down: $(PYTHON_VIRTUAL_ENVIRONMENT)
+	@$(call activate, ansible-playbook $(ANSIBLE_PLAYBOOK_FILE) $(RUN_ARGS) --tags down)
