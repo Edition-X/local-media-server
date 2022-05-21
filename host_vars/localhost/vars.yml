@@ -12,3 +12,5 @@ webui_username: nzbget
 webui_password: "{{ vault_webui_password }}"
 enable_ssl: yes
 timezone: Europe/Madrid
+jellyfin_dmg_url: https://repo.jellyfin.org/releases/server/macos/stable/installer/Jellyfin_10.7.7.dmg
+app_name: Jellyfin
