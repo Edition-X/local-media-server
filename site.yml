@@ -22,6 +22,12 @@
       tags:
         - core
 
+    - name: Start Jellyfin
+      ansible.builtin.command:
+        cmd: open -a Jellyfin
+      tags:
+        - core
+
     - name: Remove Containers
       community.docker.docker_compose:
         project_src: "host_files/{{ inventory_hostname }}"
@@ -30,55 +36,6 @@
         state: absent
       tags:
         - down # Remove containers
-
-    # - name: Check if Jellyfin is installed
-    #   ansible.builtin.stat:
-    #     path: /Applications/Jellyfin.app"
-    #   register: app_exists
-    #   tags:
-    #     - core
-
-    # - name: Make tmp dir
-    #   ansible.builtin.command:
-    #     cmd: "mkdir -p ./tmp/"
-    #   when: app_exists.stat.exists == False
-    #   tags:
-    #     - core
-
-    # - name: Download Jellyfin
-    #   ansible.builtin.get_url:
-    #     url: "{{ jellyfin_dmg_url }}"
-    #     dest: ./tmp/Jellyfin.dmg
-    #   when: app_exists.stat.exists == False
-    #   tags:
-    #     - core
-
-    # - name: Mount Jellyfin
-    #   ansible.builtin.command:
-    #     cmd: hdiutil attach ./tmp/{{ app_name }}.dmg -nobrowse -mountpoint ./tmp/{{ app_name }}
-    #   when: app_exists.stat.exists == False
-    #   tags:
-    #     - core
-    
-    # - name: Extract mounted app
-    #   ansible.builtin.shell:
-    #     cmd: cp -aR ./tmp/{{ app_name }}/*.app /Applications/{{ app_name }}.app
-    #   when: app_exists.stat.exists == False
-    #   tags:
-    #     - core
-    
-    # - name: Detach Jellyfin
-    #   ansible.builtin.command:
-    #     cmd: hdiutil detach ./tmp/{{ app_name }}/
-    #   when: app_exists.stat.exists == False
-    #   tags:
-    #     - core
-
-    - name: Start Jellyfin
-      ansible.builtin.command:
-        cmd: open -a Jellyfin
-      tags:
-        - core
 
     - name: Stop Jellyfin
       ansible.builtin.command:
